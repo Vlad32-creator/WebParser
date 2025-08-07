@@ -52,7 +52,7 @@ const MainPage = () => {
                     <div id='startPage'>
                         <nav >
                             <a href='' className='main-navItem logo'>
-                                <img src="/raketa.png" alt="logo" />
+                                <img src="/WebParser/raketa.png" alt="logo" />
                                 <h2>Web Parser</h2>
                             </a>
                             <a className='nav-item main-navItem hide-content' style={{ color: 'white' }} href='#documentation'>Documentation</a>
@@ -79,7 +79,7 @@ const MainPage = () => {
                                 <h1>Documentation</h1>
                                 <h4>You can read on <a href="#">github</a> or heare</h4>
                             </div>
-                            <a href="#"><img src="/github.png" alt="github" /></a>
+                            <a href="#"><img src="/WebParser/github.png" alt="github" /></a>
                         </header>
                         <main>
                             <h2>📌 How to Create a Parser</h2>
@@ -171,13 +171,13 @@ const MainPage = () => {
                         </main>
                         <footer>
                             <a href="https://github.com/Vlad32-creator">
-                                <img src="/github.png" alt="github" />
+                                <img src="/WebParser/github.png" alt="github" />
                             </a>
                             <a href="https://www.instagram.com/valerakhovanovv">
-                                <img src="/instagram.png" alt="instagram" />
+                                <img src="/WebParser/instagram.png" alt="instagram" />
                             </a>
                             <a href="https://t.me/ValerijKhovanov">
-                                <img src="/telegram.png" alt="telegram" />
+                                <img src="/WebParser/telegram.png" alt="telegram" />
                             </a>
                             <div className='footEl'>
                                 <span>Sole author: Valerij Khovanov</span>
@@ -186,7 +186,7 @@ const MainPage = () => {
                             </div>
                             <div className='footEl'>
                                 <span>Donate here: </span>
-                                <img id='donateImg' src="/donate.jpg" alt="" />
+                                <img id='donateImg' src="/WebParser/donate.jpg" alt="" />
                             </div>
                             <div className='footEl'>
                                 <span>Made with ❤️ in Ukraine</span>
