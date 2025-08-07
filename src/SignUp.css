@@ -1,0 +1,159 @@
+
+#wrapperSignUp{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(32,58,67);
+}
+@media (max-width: 450px) {
+    #containerSingUp{
+        width: 300px !important;
+        height: 500px !important;
+    }
+    #containerSingUp h1{
+        font-size: 1.5rem !important;
+        position: relative;
+        top: 15px;
+    }
+    #containerSingUp h4{
+        font-size: 0.7rem !important;
+    }
+    #sphereSignUp{
+        width: 250px !important;
+        height: 250px !important;
+    }
+    #containerSingUp span{
+        font-size: 0.6rem !important;
+    }
+}
+#containerSingUp{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    border: 1px solid rgb(190,190,190);
+    border-radius: 40px;
+    width: 500px;
+    height: 460px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+#exit{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    position: absolute;
+    top: 0%;
+    right: 5%;
+    width: 40px;
+    height: 60px;
+    padding-bottom: 10px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: rgb(60,79,96);
+}
+#sphereSignUp{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    filter: blur(30px);
+    z-index: 1;
+    background-image: linear-gradient(90deg,rgb(164,23,23),rgb(54,20,20));
+    animation: sphereAppend 2s ease,sphereRotate 2s linear 2s infinite;
+}
+@keyframes sphereAppend {
+    from{
+        transform: scale(0.5);
+    }
+}
+@keyframes sphereRotate {
+    from{
+        transform: translate(-50%,-50%) rotateZ(0deg);
+    }to{
+        transform: translate(-50%,-50%) rotateZ(360deg);
+    }
+}
+#containerSingUp form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 55%;
+    width: 100%;
+}
+#containerSingUp form label{
+    width: 65%;
+    height: 10%;
+    animation: lab 1s ease;
+}
+@keyframes lab {
+    from{
+        opacity: 0;
+    }
+}
+#containerSingUp form input{
+    width: 100%;
+    height: 100%;
+    padding-left: 5%;
+    color: white;
+    outline: none;
+    border: none;
+    background-color: rgb(60,79,96);
+    animation: input 1s ease;
+}
+@keyframes input {
+    from{
+        opacity: 0;
+        transform: translate(10%,-10%);
+    }
+}
+#containerSingUp form button{
+    outline: none;
+    color: white;
+    width: 70%;
+    margin-left: 5%;
+    background-color: rgb(34,211,238);
+    animation: sign 1s ease;
+}
+@keyframes sign {
+    from{
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+#containerSingUp h1{
+    font-size: 2.2rem;
+    animation: lab 1s ease;
+}
+#containerSingUp h4{
+    font-size: 0.9rem;
+    color: rgb(209,213,219);
+}
+#containerSingUp span{
+    font-size: 0.8rem;
+    animation: btnAppend 1s ease;
+}
+#containerSingUp span button{
+    outline: none;
+    background-color: transparent;
+    color: rgb(34,211,238);
+    padding-left: 5px;
+    border: none;
+}
+@keyframes btnAppend {
+    from{
+        opacity: 0;
+        transform: translateY(20%);
+    }
+}
