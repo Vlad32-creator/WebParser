@@ -136,7 +136,6 @@ const CreateParser = ({ setNav, updateParsers, changeData, setChangeData }) => {
                             el.success.forEach(el => {
                                 answer.push(el);
                             });
-                            console.log('was Array');
                         }else{
                             answer.push(el);
                         }
@@ -167,8 +166,6 @@ const CreateParser = ({ setNav, updateParsers, changeData, setChangeData }) => {
     }
 
     const delAction = (id) => {
-        console.log(actions);
-
         setActions(prev => prev.filter(el => el.id !== id));
         arrayRef.current = arrayRef.current.filter(el => el.keyId !== id);
     }

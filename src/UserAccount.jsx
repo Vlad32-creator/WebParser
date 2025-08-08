@@ -32,7 +32,6 @@ const UserAccount = ({ exit }) => {
             let result;
             if (res.includes('mainPars')) {
                 const data = res.slice(8);
-                console.log(data);
                 result = await fetch('https://parser-x9js.onrender.com/mainPars', {
                     method: "POST",
                     headers: {
@@ -54,7 +53,6 @@ const UserAccount = ({ exit }) => {
                                 el.success.forEach(el => {
                                     answer.push(el);
                                 });
-                                console.log('was Array');
                             } else {
                                 answer.push(el);
                             }
@@ -89,7 +87,6 @@ const UserAccount = ({ exit }) => {
                         if(!Array.isArray(data)){
                             data = [data];
                         }
-                        console.log(data);
 
                         setParserData(data);
                         setIsParseData(true);
@@ -112,9 +109,7 @@ const UserAccount = ({ exit }) => {
             key = key.slice(7);
 
             if (value.startsWith('mainPars')) {
-                console.log('mainPars');
                 const url = value.slice(value.indexOf('url') + 4, value.indexOf(';'));
-                console.log({ key, value, url });
 
                 return { key, value, url };
             } else {
@@ -125,7 +120,6 @@ const UserAccount = ({ exit }) => {
                     console.warn(`Значение по ключу "${key}" не JSON:`, value);
                     return { key, value, url: '' };
                 }
-                console.log('not main Pars');
 
                 const url = data['url'];
                 return { key, value, url }

@@ -16,6 +16,9 @@ const MainPage = () => {
         }
     }
     useEffect(() => {
+        localStorage.setItem('parser:Translator',
+            'mainParsurl:https://translate.google.com/?hl=ru&sl=en&tl=uk&op=translate;input:[.er8xn,Hellow my friend if you see this text it meens  you tried transtale from English to Ukraine ];wait:500;data:[.ryNqvb,text];');
+        localStorage.setItem('parser:NBU info','{"url":"https://bank.gov.ua/",".content":"text"}');
         const init = async () => {
             try {
                 const result = await fetch('https://simpe-backand.onrender.com/checkTokens', {
