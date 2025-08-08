@@ -84,7 +84,8 @@ const CreateParser = ({ setNav, updateParsers, changeData, setChangeData }) => {
             }
             res += ';';
         });
-        localStorage.setItem(parserNameRef.current.value, res);
+        const parserName = `parser:${parserNameRef.current.value}`;
+        localStorage.setItem(parserName, res);
         setNav('parsers');
         updateParsers?.();
     }

@@ -28,7 +28,7 @@ const UserAccount = ({ exit }) => {
     const runParser = async (el) => {
         try {
             setIsLoader(true);
-            const res = localStorage.getItem(el);
+            const res = localStorage.getItem(`parser:${el}`);
             let result;
             if (res.includes('mainPars')) {
                 const data = res.slice(8);
@@ -70,7 +70,9 @@ const UserAccount = ({ exit }) => {
                     setParserData(answer);
                     setIsParseData(true);
 
-                }} else {
+                }
+            } else {
+                try {
                     result = await fetch('https://parser-x9js.onrender.com/easePars', {
                         method: 'POST',
                         headers: {
@@ -78,88 +80,111 @@ const UserAccount = ({ exit }) => {
                         },
                         body: res
                     });
-                if (!result.ok) {
-                    console.log('Som thing went wrong');
-                    setIsLoader(false);
-                } else {
-                    setIsLoader(false);
-                    const data = await result.json();
-                    setParserData(data);
-                    setIsParseData(true);
-                }
-                }
+                    if (!result.ok) {
+                        console.log('Som thing went wrong');
+                        setIsLoader(false);
+                    } else {
+                        setIsLoader(false);
+                        let data = await result.json();
+                        if(!Array.isArray(data)){
+                            data = [data];
+                        }
+                        console.log(data);
 
-            } catch (err) {
-                setIsLoader(false);
-                console.log(err);
+                        setParserData(data);
+                        setIsParseData(true);
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
             }
+
+        } catch (err) {
+            setIsLoader(false);
+            console.log(err);
         }
+    }
 
     const updateParsers = () => {
-            const parsed = Object.keys(localStorage).map(key => {
-                const value = localStorage.getItem(key)
-                if (value.includes('mainPars')) {
-                    const url = value.slice(value.indexOf('url') + 4, value.indexOf(';'));
-                    return { key, value: value, url };
-                } else {
-                    const data = JSON.parse(value);
-                    const url = data['url'];
-                    return { key, value, url }
+        const parsed = Object.keys(localStorage).map(key => {
+            if (!key.startsWith('parser:')) return;
+            const value = localStorage.getItem(key);
+            key = key.slice(7);
+
+            if (value.startsWith('mainPars')) {
+                console.log('mainPars');
+                const url = value.slice(value.indexOf('url') + 4, value.indexOf(';'));
+                console.log({ key, value, url });
+
+                return { key, value, url };
+            } else {
+                let data
+                try {
+                    data = JSON.parse(value);
+                } catch (err) {
+                    console.warn(`Значение по ключу "${key}" не JSON:`, value);
+                    return { key, value, url: '' };
                 }
-            });
-            setParsers(parsed);
-        }
-        const deleteParsers = (el) => {
-            localStorage.removeItem(el);
-            updateParsers();
-        }
+                console.log('not main Pars');
 
-        useEffect(() => {
-            updateParsers();
-        }, []);
-
-        return (
-            <>
-                {isLoader && <Loader />}
-                {isParseData && <ParserData exit={setIsParseData} data={parserData} />}
-                <div id='userAccountWrapper'>
-                    <nav>
-                        <div className='logoUserAccount'>
-                            <img src="/raketa.png" alt="logo" />
-                            <h2>Web Parser</h2>
-                        </div>
-                        <span onClick={() => exit(false)} className='nav-item'>Main</span>
-                        <span onClick={() => setNav('parsers')} className='nav-item' >Parsers</span>
-                        <span onClick={() => nav === 'createParser' ? setNav('easeParsParser') : setNav('createParser')} className='nav-item'>Create Parser</span>
-                    </nav>
-                    <main>
-                        {nav === 'createParser' && <CreateParser setNav={setNav} updateParsers={updateParsers} changeData={changeData} setChangeData={setChangeData} />}
-                        {nav === 'easeParsParser' && <EaseParsParser updateParsers={updateParsers} exit={setNav} setChangeData={setChangeData} changeData={changeData} />}
-                        {nav === 'parsers' &&
-                            <div id='currentParsersWrapper'>
-                                <header>
-                                    <div>Name</div>
-                                    <div>Url</div>
-                                    <div>Setting</div>
-                                </header>
-                                <ul>
-                                    {parsers.map((el, index) => {
-                                        
-                                        return (
-                                            <li className='parserEl' key={index}>
-                                                <p onDoubleClick={() => deleteParsers(el.key)} onTouchEnd={() => deleteParsers(el.key)}>{el.key}</p>
-                                                <div>{el.url}</div>
-                                                <button onClick={() => changeParser(el.value, el.key)} className='change'>Change</button>
-                                                <button onClick={() => runParser(el.key)} className='runBtn'>Run</button>
-                                            </li>
-                                        )
-                                    })}
-                                </ul>
-                            </div>
-                        }
-                    </main>
-                </div>
-            </>
-        )
+                const url = data['url'];
+                return { key, value, url }
+            }
+        });
+        setParsers(parsed);
     }
-    export default UserAccount;
+
+    const deleteParsers = (el) => {
+        localStorage.removeItem(el);
+        updateParsers();
+    }
+
+    useEffect(() => {
+        updateParsers();
+    }, []);
+
+    return (
+        <>
+            {isLoader && <Loader />}
+            {isParseData && <ParserData exit={setIsParseData} data={parserData} />}
+            <div id='userAccountWrapper'>
+                <nav>
+                    <div className='logoUserAccount'>
+                        <img src="/WebParser/raketa.png" alt="logo" />
+                        <h2>Web Parser</h2>
+                    </div>
+                    <span onClick={() => exit(false)} className='nav-item'>Main</span>
+                    <span onClick={() => setNav('parsers')} className='nav-item' >Parsers</span>
+                    <span onClick={() => nav === 'createParser' ? setNav('easeParsParser') : setNav('createParser')} className='nav-item'>Create Parser</span>
+                </nav>
+                <main>
+                    {nav === 'createParser' && <CreateParser setNav={setNav} updateParsers={updateParsers} changeData={changeData} setChangeData={setChangeData} />}
+                    {nav === 'easeParsParser' && <EaseParsParser updateParsers={updateParsers} exit={setNav} setChangeData={setChangeData} changeData={changeData} />}
+                    {nav === 'parsers' &&
+                        <div id='currentParsersWrapper'>
+                            <header>
+                                <div>Name</div>
+                                <div>Url</div>
+                                <div>Setting</div>
+                            </header>
+                            <ul>
+                                {parsers.map((el, index) => {
+                                    if (!el) return;
+                                    return (
+                                        <li className='parserEl' key={index}>
+                                            <p onDoubleClick={() => deleteParsers(el.key)} onTouchEnd={() => deleteParsers(el.key)}>{el?.key}</p>
+                                            <div>{el.url}</div>
+                                            <button onClick={() => changeParser(el.value, el.key)} className='change'>Change</button>
+                                            <button onClick={() => runParser(el.key)} className='runBtn'>Run</button>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+                    }
+                </main>
+            </div>
+        </>
+    )
+}
+export default UserAccount;

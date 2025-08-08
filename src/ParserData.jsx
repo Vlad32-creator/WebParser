@@ -14,7 +14,8 @@ const ParserData = ({ exit, data }) => {
                 <div id='parserDataExitEl1'></div>
                 <div id='parserDataExitEl2'></div>
             </button>
-            {data.map((el, index) => {  
+            {data.map((el, index) => {
+                if(!el) return;
                 return (
                     <div key={index} className='cameData'>
                         <header >

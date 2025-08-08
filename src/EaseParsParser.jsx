@@ -19,8 +19,9 @@ const EaseParsParser = ({ exit, updateParsers, changeData, setChangeData }) => {
             const url = urlRef.current?.value.trim();
             const select = selectRef.current?.value.trim();
             const get = getRef.current?.value.trim();
+            const parserName = `parser:${name}`;
             if (!name || !url || !select) return alert('Fill fields');
-            localStorage.setItem(name, JSON.stringify({ url: url, [select]: get }));
+            localStorage.setItem(parserName, JSON.stringify({ url: url, [select]: get }));
             updateParsers?.();
             exit?.('parsers');
         } catch (err) {

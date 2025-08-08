@@ -31,7 +31,10 @@ const RegistrationForm = ({ setSignUp,setEnter,enter,isSignIn,setIsSignIn }) => 
                 console.log('Server ERROR');
                 setLoader(false);
             } else {
+                console.log(result);
                 const data = await result.json();
+                console.log(data);
+
                 if (data.success) {
                     setEnter(true);
                 } else {
@@ -65,17 +68,17 @@ const RegistrationForm = ({ setSignUp,setEnter,enter,isSignIn,setIsSignIn }) => 
                         <h4>Start building your web parsers today!</h4>
                         <form action="">
                             <label htmlFor="name">
-                                <div style={error.userName?.trim() === ""? {color:'white'}:{color: 'red'}}>{error.userName?.trim() === ''? 'Username': error.userName}</div>
+                                <div style={!error.userName? {color:'white'}:{color: 'red'}}>{!error.userName ? 'Username': error.userName}</div>
                                 <input ref={userNameRef} id='name' type="text" placeholder='jone_123' />
                             </label>
 
                             <label htmlFor="email">
-                                <div style={error.email?.trim() === ""? {color:'white'}:{color: 'red'}}>{error.email?.trim() === ''? 'Email': error.email}</div>
+                                <div style={!error.email? {color:'white'}:{color: 'red'}}>{!error.email? 'Email': error.email}</div>
                                 <input ref={emailRef} id='email' type="text" placeholder='exemple@.com' />
                             </label>
 
                             <label htmlFor="password">
-                                <div style={error.password?.trim() === ""? {color:'white'}:{color: 'red'}}>{error.password?.trim() === ''? 'Password': error.password}</div>
+                                <div style={!error.password? {color:'white'}:{color: 'red'}}>{!error.password? 'Password': error.password}</div>
                                 <input ref={passwordRef} id='password' type="password" placeholder='*****' />
                             </label>
 

@@ -26,7 +26,10 @@ const EnterForm = ({ signIn, exit, setEnter }) => {
                 console.log('Server ERROR');
                 setLoader(false);
             } else {
+                console.log(result);
                 const data = await result.json();
+                console.log(data);
+                
                 if (data.success) {
                     setEnter(true);
                     setLoader(false);
@@ -56,11 +59,11 @@ const EnterForm = ({ signIn, exit, setEnter }) => {
                     <h1>Enter to Account</h1>
                     <form action="">
                         <label htmlFor="">
-                            <div style={error.email?.trim() === ""? {color:'white'}:{color: 'red'}}>{error.email?.trim() === ''? 'Email': error.email}</div>
+                            <div style={!error.email? {color:'white'}:{color: 'red'}}>{!error.email? 'Email': error.email}</div>
                             <input ref={emailRef} type="text" placeholder='example@.com'/>
                         </label>
                         <label htmlFor="">
-                            <div style={error.password?.trim() === ""? {color:'white'}:{color: 'red'}}>{error.password?.trim() === ''?'Password': error.password}</div>
+                            <div style={!error.password? {color:'white'}:{color: 'red'}}>{!error.password?'Password': error.password}</div>
                             <input ref={passwordRef} type="password" placeholder='*******'/>
                         </label>
                         <button type='button' onClick={enterToAccount}>Sign in</button>
