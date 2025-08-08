@@ -135,7 +135,7 @@ const UserAccount = ({ exit }) => {
     }
 
     const deleteParsers = (el) => {
-        localStorage.removeItem(el);
+        localStorage.removeItem(`parser:${el}`);
         updateParsers();
     }
 
